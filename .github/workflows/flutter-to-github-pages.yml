@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Flutter To GitHubPages
+name: flutter-to-github-pages
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build web
+      - run:  flutter build web --release --base-href="/flutter_app/"
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
