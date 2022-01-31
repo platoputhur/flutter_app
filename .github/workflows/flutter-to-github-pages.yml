@@ -1,0 +1,36 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Flutter To GitHubPages
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build flutter App
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter --version
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build web
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: build/web
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
