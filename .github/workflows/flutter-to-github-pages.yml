@@ -23,9 +23,6 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build web
-  publish:
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
